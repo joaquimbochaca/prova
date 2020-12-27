@@ -5,23 +5,23 @@ node ('Ubuntu-app-agent'){
        checkout scm
     }  
     stage('SAST'){
-        build 'SECURITY-SAST-SNYK'
+    //    build 'SECURITY-SAST-SNYK'
     }
 
     
     stage('Build-and-Tag') {
     /* This builds the actual image; synonymous to
          * docker build on the command line */
-        app = docker.build("amrit96/snake")
+        app = docker.build("quimbochaca/prova")
     }
     stage('Post-to-dockerhub') {
     
-     docker.withRegistry('https://registry.hub.docker.com', 'training_creds') {
-            app.push("latest")
+     //docker.withRegistry('https://registry.hub.docker.com', 'training_creds') {
+       //     app.push("latest")
         			}
          }
     stage('SECURITY-IMAGE-SCANNER'){
-        build 'SECURITY-IMAGE-SCANNER-AQUAMICROSCANNER'
+        //build 'SECURITY-IMAGE-SCANNER-AQUAMICROSCANNER'
     }
   
     
@@ -33,7 +33,7 @@ node ('Ubuntu-app-agent'){
     
     stage('DAST')
         {
-        build 'SECURITY-DAST-OWASP_ZAP'
+        //build 'SECURITY-DAST-OWASP_ZAP'
         }
  
 }
