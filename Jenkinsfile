@@ -12,7 +12,8 @@ node ('Ubuntu-app-agent'){
     stage('Build-and-Tag') {
     /* This builds the actual image; synonymous to
          * docker build on the command line */
-        app = docker.build("quimbochaca/prova")
+        //app = docker.build("quimbochaca/prova")
+        sh 'echo build-and-tag'
     }
     stage('Post-to-dockerhub') {
     
