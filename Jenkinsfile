@@ -19,10 +19,11 @@ node ('Ubuntu-app-agent'){
     
      //docker.withRegistry('https://registry.hub.docker.com', 'training_creds') {
        //     app.push("latest")
-        			}
+        		//	}
          }
     stage('SECURITY-IMAGE-SCANNER'){
         //build 'SECURITY-IMAGE-SCANNER-AQUAMICROSCANNER'
+        sh 'echo security-image-scanner'
     }
   
     
@@ -30,11 +31,13 @@ node ('Ubuntu-app-agent'){
     
          sh "docker-compose down"
          sh "docker-compose up -d"	
+        sh 'echo pull-image-server'
       }
     
     stage('DAST')
         {
         //build 'SECURITY-DAST-OWASP_ZAP'
+            sh 'echo DAST'
         }
  
 }
