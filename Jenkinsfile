@@ -1,24 +1,25 @@
-node ('master'){  
+node ('ubuntu-app-agent'){  
     def app
     stage('Cloning Git') {
         /* Let's make sure we have the repository cloned to our workspace */
        checkout scm
     }  
-    stage('SAST'){
-    //    build 'SECURITY-SAST-SNYK'
-    }
+   
 
     
     stage('Build-and-Tag') {
     /* This builds the actual image; synonymous to
          * docker build on the command line */
-        //app = docker.build("quimbochaca/prova")
+        app = docker.build("quimbochaca/prova:test")
         sh 'echo build-and-tag'
+    }
+     stage('SAST'){
+    //    build 'SECURITY-SAST-SNYK'
     }
     stage('Post-to-dockerhub') {
     
-     //docker.withRegistry('https://registry.hub.docker.com', 'training_creds') {
-       //     app.push("latest")
+     docker.withRegistry('https://registry.hub.docker.com', 'd050a934-7732-4ee2-9475-fdecc3bc07e7') {
+            app.push("latest")
         		//	}
          }
     stage('SECURITY-IMAGE-SCANNER'){
