@@ -20,7 +20,7 @@ node ('ubuntu-app-agent'){
     
      docker.withRegistry('https://registry.hub.docker.com', 'd050a934-7732-4ee2-9475-fdecc3bc07e7') {
             app.push("latest")
-        		//	}
+        	}
          }
     stage('SECURITY-IMAGE-SCANNER'){
         //build 'SECURITY-IMAGE-SCANNER-AQUAMICROSCANNER'
