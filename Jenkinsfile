@@ -4,17 +4,15 @@ node ('ubuntu-app-agent'){
         /* Let's make sure we have the repository cloned to our workspace */
        checkout scm
     }  
-   
 
-    
     stage('Build-and-Tag') {
     /* This builds the actual image; synonymous to
          * docker build on the command line */
-        app = docker.build("quimbochaca/prova:test")
+        app = docker.build("quimbochaca/test:test")
         sh 'echo build-and-tag'
     }
      stage('SAST'){
-    //    build 'SECURITY-SAST-SNYK'
+         build 'SECURITY-SAST-SNYK'
     }
     stage('Post-to-dockerhub') {
     
@@ -23,8 +21,7 @@ node ('ubuntu-app-agent'){
         	}
          }
     stage('SECURITY-IMAGE-SCANNER'){
-        //build 'SECURITY-IMAGE-SCANNER-AQUAMICROSCANNER'
-        sh 'echo security-image-scanner'
+        build 'SECURITY-IMAGE-SCANNER-ANCHORE'
     }
   
     
@@ -32,13 +29,11 @@ node ('ubuntu-app-agent'){
     
          sh "docker-compose down"
          sh "docker-compose up -d"	
-        sh 'echo pull-image-server'
       }
     
     stage('DAST')
         {
-        //build 'SECURITY-DAST-OWASP_ZAP'
-            sh 'echo DAST'
+        build 'SECURITY-DAST-OWASP_ZAP'
         }
  
 }
